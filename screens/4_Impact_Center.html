@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CiviAI Impact Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e8ea",
+                        "secondary-fixed": "#d5e3fc",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary-container": "#d5e3fc",
+                        "tertiary-fixed": "#d6e3ff",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-background": "#191c1e",
+                        "background": "#f7f9fb",
+                        "outline": "#747780",
+                        "primary-container": "#002769",
+                        "on-tertiary-fixed": "#001b3d",
+                        "on-primary-container": "#5f8eff",
+                        "on-primary-fixed": "#001847",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#001736",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#515f74",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#0040a1",
+                        "on-surface": "#191c1e",
+                        "primary": "#00143f",
+                        "inverse-primary": "#b2c5ff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#0056d2",
+                        "surface-container": "#eceef0",
+                        "surface-variant": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-dim": "#d8dadc",
+                        "inverse-surface": "#2d3133",
+                        "surface": "#f7f9fb",
+                        "on-secondary-container": "#57657a",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "primary-fixed": "#dae2ff",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "tertiary-fixed-dim": "#a9c7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#002b5b",
+                        "on-surface-variant": "#43474f",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#7594ca",
+                        "outline-variant": "#c4c6d0",
+                        "on-tertiary-fixed-variant": "#264778"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            background-color: rgba(247, 249, 251, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar Shell -->
+<aside class="hidden lg:flex flex-col h-screen w-64 border-r border-slate-200 bg-slate-50 sticky top-0 shrink-0 py-6 px-4">
+<div class="mb-10 px-4">
+<h1 class="text-lg font-black text-slate-900 tracking-tight">CiviAI</h1>
+<p class="text-[0.7rem] uppercase tracking-[0.15em] font-semibold text-blue-700 mt-1">Digital Diplomat</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Impact Center is active -->
+<a class="bg-blue-50 text-blue-700 rounded-lg px-4 py-2 font-bold flex items-center gap-3 transition-all translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm">Impact Center</span>
+</a>
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-sm">Admin Queue</span>
+</a>
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="text-sm">Report Issue</span>
+</a>
+</nav>
+<button class="mt-4 mx-4 bg-gradient-to-r from-primary to-primary-container text-white rounded-lg py-3 px-4 font-semibold text-sm shadow-lg shadow-blue-900/10 active:scale-95 transition-transform">
+            New Report
+        </button>
+<div class="mt-auto space-y-2 pt-6 border-t border-slate-200/60">
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="text-sm">Notifications</span>
+</a>
+<a class="text-slate-600 px-4 py-2 flex items-center gap-3 hover:bg-slate-100 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar Shell -->
+<header class="bg-slate-50 z-50 sticky top-0 border-b border-transparent">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-[1440px] mx-auto">
+<div class="lg:hidden font-black text-xl text-slate-900">CiviAI</div>
+<div class="hidden lg:flex items-center gap-8">
+<a class="text-[0.75rem] uppercase tracking-wider font-semibold text-blue-700 border-b-2 border-blue-700 pb-1" href="#">Impact Center</a>
+<a class="text-[0.75rem] uppercase tracking-wider font-semibold text-slate-600 hover:text-blue-600 transition-colors" href="#">Dashboard</a>
+<a class="text-[0.75rem] uppercase tracking-wider font-semibold text-slate-600 hover:text-blue-600 transition-colors" href="#">Admin Queue</a>
+<a class="text-[0.75rem] uppercase tracking-wider font-semibold text-slate-600 hover:text-blue-600 transition-colors" href="#">Report Issue</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="bg-slate-100 border-none rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 w-48 transition-all focus:w-64" placeholder="Search data..." type="text"/>
+</div>
+<button class="p-2 hover:bg-slate-200/50 rounded-full transition-colors text-slate-600">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-slate-200/50 rounded-full transition-colors text-slate-600">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden ring-2 ring-white">
+<img alt="User profile" data-alt="Close-up portrait of a professional male executive in a neutral environment with clean studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAtwgucaKB7WCvrH-gns1Ts7e3231MyCoGRxg_lkgANW0MssMzT1J9gaJy55p1D_sdF5U7yULu-zOOqqZcyrtcNAiceTDQ8pekeN7vZdHcDOMYbQBnNBt7YkYndK4Uac98mv-Y91Ctw6cjUdvv6E--WrSyIShrdzTng7iR4C8n7XTfB4o4fP6LFb0QX2tOxuGWFV2a8e5wIU0_t8tsQdiCfj5LHJLHtyewPBeoNwOF6vQZfu9AHfxrcTIq7Fk6PNvvb1DT_jPBL8Q"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="p-8 max-w-[1440px] mx-auto w-full">
+<!-- Hero Title -->
+<div class="mb-10">
+<h2 class="text-4xl font-extrabold text-on-surface tracking-tight mb-2">Impact Center</h2>
+<p class="text-secondary max-w-2xl">Executive oversight for regional civic stability and resolution management. Data verified via Digital Diplomat AI protocol.</p>
+</div>
+<!-- Hero Metric Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/15 flex flex-col justify-between h-32">
+<span class="text-[0.7rem] uppercase tracking-wider font-semibold text-slate-500">Total Complaints</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold text-on-surface">1,284</span>
+<span class="text-xs font-bold text-green-600 flex items-center gap-0.5"><span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>+12%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/15 flex flex-col justify-between h-32">
+<span class="text-[0.7rem] uppercase tracking-wider font-semibold text-slate-500">Resolution Rate</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold text-on-surface">84.2%</span>
+<div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="bg-surface-tint h-full w-[84%]"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/15 flex flex-col justify-between h-32 border-l-4 border-l-error">
+<span class="text-[0.7rem] uppercase tracking-wider font-semibold text-slate-500">Critical Cases</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold text-error">42</span>
+<span class="material-symbols-outlined text-error" data-icon="priority_high" data-weight="fill" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/15 flex flex-col justify-between h-32">
+<span class="text-[0.7rem] uppercase tracking-wider font-semibold text-slate-500">Avg Res Time</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold text-on-surface">3.4d</span>
+<span class="text-xs font-bold text-green-600 flex items-center gap-0.5"><span class="material-symbols-outlined text-sm" data-icon="arrow_downward">arrow_downward</span>0.8d</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/15 flex flex-col justify-between h-32">
+<span class="text-[0.7rem] uppercase tracking-wider font-semibold text-slate-500">Verification Coverage</span>
+<div class="flex items-end justify-between">
+<span class="text-3xl font-bold text-on-surface">97.5%</span>
+<span class="material-symbols-outlined text-blue-600" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<!-- Main Dashboard Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Civic Impact Pulse (AI Summary) -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<section class="bg-gradient-to-br from-primary to-primary-container p-8 rounded-2xl text-white relative overflow-hidden shadow-xl">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="text-[0.75rem] uppercase tracking-[0.2em] font-bold text-on-primary-container">Civic Impact Pulse</h3>
+</div>
+<h4 class="text-2xl font-semibold mb-4 leading-snug">Current stability index remains high, but infrastructure fatigue in District 4 is trending towards critical.</h4>
+<p class="text-on-primary-container/80 text-lg font-light leading-relaxed mb-6">
+                                The Digital Diplomat AI has detected a 14% increase in sanitation-related reports concentrated in the East Gateway corridor. While resolution times remain within the SLA, the concentration of complaints suggests an underlying utility failure rather than isolated incidents. Verification coverage in this sector is 100%, confirming that 82% of reports are authentic civic grievances.
+                            </p>
+<div class="flex gap-4">
+<button class="px-6 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm font-semibold transition-colors border border-white/20">Analyze Root Cause</button>
+<button class="px-6 py-2 bg-on-primary-container text-primary font-semibold rounded-lg text-sm shadow-lg shadow-black/20 hover:scale-105 transition-transform">Deploy Resources</button>
+</div>
+</div>
+</section>
+<!-- Urgency-Priority Queue -->
+<section class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-bold tracking-tight">Urgency-Priority Queue</h3>
+<button class="text-sm font-semibold text-blue-700 hover:underline">View All Open Cases</button>
+</div>
+<div class="space-y-4">
+<!-- Case Item -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center gap-5">
+<div class="w-1.5 h-12 bg-error rounded-full"></div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold px-2 py-0.5 bg-error-container text-on-error-container rounded uppercase tracking-tighter">Emergency</span>
+<span class="text-xs text-slate-400 font-mono">#CIV-90122</span>
+</div>
+<h5 class="font-semibold text-on-surface">Structural Failure - Westside Transit Bridge</h5>
+<p class="text-xs text-secondary">Reported 45 mins ago · District 7</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-bold text-on-surface">24 Verified Reports</div>
+<div class="text-xs text-slate-400">Escalated to Engineering</div>
+</div>
+<button class="p-2 bg-slate-100 group-hover:bg-blue-600 group-hover:text-white rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Case Item -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center gap-5">
+<div class="w-1.5 h-12 bg-amber-500 rounded-full"></div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold px-2 py-0.5 bg-amber-100 text-amber-800 rounded uppercase tracking-tighter">High Priority</span>
+<span class="text-xs text-slate-400 font-mono">#CIV-89945</span>
+</div>
+<h5 class="font-semibold text-on-surface">Water Contamination Alert - Maple Precinct</h5>
+<p class="text-xs text-secondary">Reported 2 hours ago · Central District</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-bold text-on-surface">12 Verified Reports</div>
+<div class="text-xs text-slate-400">Assigned to Utility Dept.</div>
+</div>
+<button class="p-2 bg-slate-100 group-hover:bg-blue-600 group-hover:text-white rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Case Item -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex items-center justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-center gap-5">
+<div class="w-1.5 h-12 bg-blue-500 rounded-full"></div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs font-bold px-2 py-0.5 bg-blue-100 text-blue-800 rounded uppercase tracking-tighter">Medium</span>
+<span class="text-xs text-slate-400 font-mono">#CIV-88211</span>
+</div>
+<h5 class="font-semibold text-on-surface">Unplanned Power Outage - Tech Corridor</h5>
+<p class="text-xs text-secondary">Reported 6 hours ago · North District</p>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-bold text-on-surface">58 Verified Reports</div>
+<div class="text-xs text-slate-400">In Investigation</div>
+</div>
+<button class="p-2 bg-slate-100 group-hover:bg-blue-600 group-hover:text-white rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Sidebar Elements -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Top Civic Hotspots -->
+<section class="bg-surface-container-lowest border border-outline-variant/15 rounded-2xl overflow-hidden shadow-sm">
+<div class="p-6 border-b border-outline-variant/10">
+<h3 class="text-lg font-bold tracking-tight">Top Civic Hotspots</h3>
+</div>
+<div class="p-6">
+<div class="relative w-full h-48 bg-slate-100 rounded-xl mb-6 overflow-hidden">
+<img alt="Civic Map" class="w-full h-full object-cover" data-alt="Stylized monochromatic city map with glowing heatmap clusters in red and orange indicating high volume areas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaDXGDb66VxUazOwQdJ6NkF_XgALVCXdZbCDOVtpB3XNf6AX-0xIwydp_mA4ivgPfxqfpFPGCuJXd64pYJTlPlWn8Cp6QlIoAe1B-1F05v6F1r9WPGxABx78H6a_mSeV8zQ4346Qqj4pbhGT2ekUVirytrsRLEO6_sr2Ld-a9eSkNIDfdWzmhaTQjg5opJRylCShawfCX8b8A_azPkExLWUdieG3KktMCElyd4oXrzLXTaJiSm0p5NJ7wtIbJBxDjNF4kIyMtAEbE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+<div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-lg px-3 py-1.5 flex items-center gap-2 shadow-sm">
+<span class="w-2 h-2 bg-error rounded-full animate-pulse"></span>
+<span class="text-[0.65rem] font-bold text-slate-700 uppercase tracking-wider">Live Activity Map</span>
+</div>
+</div>
+<ul class="space-y-6">
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">01</div>
+<span class="font-medium text-sm text-on-surface">District 4 (South Riverside)</span>
+</div>
+<span class="text-sm font-bold text-slate-700">342 Cases</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">02</div>
+<span class="font-medium text-sm text-on-surface">East Gateway Corridor</span>
+</div>
+<span class="text-sm font-bold text-slate-700">215 Cases</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">03</div>
+<span class="font-medium text-sm text-on-surface">Central Metro Precinct</span>
+</div>
+<span class="text-sm font-bold text-slate-700">188 Cases</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">04</div>
+<span class="font-medium text-sm text-on-surface">Tech Hub North</span>
+</div>
+<span class="text-sm font-bold text-slate-700">104 Cases</span>
+</li>
+</ul>
+<button class="w-full mt-8 py-3 rounded-xl bg-surface-container-low text-on-surface-variant font-semibold text-sm hover:bg-surface-container-high transition-colors">Generate Geospatial Report</button>
+</div>
+</section>
+<!-- Verification Chip -->
+<section class="bg-tertiary-container p-6 rounded-2xl text-on-tertiary-container relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant" data-icon="verified_user" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-xs font-bold uppercase tracking-widest">Protocol Verified</span>
+</div>
+<p class="text-sm font-medium leading-relaxed opacity-90">
+                                This dashboard is currently operating under Protocol 7-A. All data feeds are end-to-end encrypted and verified against multi-source civic signals.
+                            </p>
+</div>
+<div class="absolute -bottom-6 -right-6 opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="policy">policy</span>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation (Floating for modern look) -->
+<div class="lg:hidden fixed bottom-6 left-6 right-6 z-[100] h-16 glass-nav rounded-2xl shadow-2xl border border-white/20 flex items-center justify-around px-4">
+<button class="flex flex-col items-center gap-1 text-blue-700">
+<span class="material-symbols-outlined" data-icon="analytics" data-weight="fill" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-[0.65rem] font-bold uppercase">Impact</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[0.65rem] font-bold uppercase">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 h-12 bg-primary rounded-xl text-white -mt-10 shadow-lg">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+<span class="text-[0.65rem] font-bold uppercase">Queue</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[0.65rem] font-bold uppercase">Profile</span>
+</button>
+</div>
+</body></html>

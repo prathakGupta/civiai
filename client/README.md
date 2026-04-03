@@ -1,16 +1,46 @@
-# React + Vite
+# CiviAI Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for the CiviAI platform.
 
-Currently, two official plugins are available:
+## Route Contract
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `/` -> Impact Center (live insights)
+- `/dashboard` -> Operations Dashboard (filters + pagination)
+- `/queue` -> Admin Queue (bulk/single status actions)
+- `/worker` -> Worker Taskboard (assigned tasks + progress updates)
+- `/report` -> Report Issue (upload + create complaint)
+- `/complaint/:id` -> Complaint Detail (status + verification)
 
-## React Compiler
+## Implementation Notes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- API client modules:
+  - `src/api/http.js`
+  - `src/api/complaints.js`
+- Styling system: Tailwind-first (`tailwind.config.js`, `src/index.css`)
+- Legacy duplicate UI pages/components were removed to keep one active source of truth.
+- Minimal admin auth headers are sent automatically:
+  - `x-user-role` (`ADMIN` / `WORKER` / `CITIZEN`)
+  - `x-admin-password` (required for admin-protected actions when auth is enabled)
+  - `x-worker-name` (included for worker progress audit logs)
 
-## Expanding the ESLint configuration
+## Run Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Environment
+
+Create `.env` (optional):
+
+```env
+VITE_API_BASE_URL=http://localhost:5000/api/v1
+VITE_USER_ROLE=CITIZEN
+VITE_ADMIN_PASSWORD=
+VITE_WORKER_NAME=
+```
+
+Notes:
+- Use `VITE_USER_ROLE=ADMIN` + `VITE_ADMIN_PASSWORD=<value>` for local admin action testing.
+- In production, avoid shipping admin passwords in public frontend env.

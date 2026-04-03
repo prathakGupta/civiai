@@ -1,4 +1,4 @@
-import { gemini } from "../config/gemini.js";
+import { getGeminiClient } from "../config/gemini.js";
 
 function extractJson(text) {
   const start = text.indexOf("{");
@@ -15,6 +15,8 @@ export async function classifyComplaintImage(
   imageUrl,
   imageMimeType = "image/jpeg",
 ) {
+  const gemini = getGeminiClient();
+
   const prompt = `
 You are a civic issue classifier.
 
@@ -57,12 +59,14 @@ Rules:
   return extractJson(text);
 }
 
-export async function verifyBeforeAfter(
+export async function verifyBeforeAfter({
   beforeImageUrl,
   beforeImageMimeType = "image/jpeg",
   afterImageUrl,
-  afterImageMimeType = "image/jpeg",
-) {
+  afterImageMimeType = "image/jpeg"
+}) {
+  const gemini = getGeminiClient();
+
   const prompt = `
 Compare the BEFORE and AFTER civic issue images.
 
@@ -90,18 +94,18 @@ Rules:
           {
             fileData: {
               fileUri: beforeImageUrl,
-              mimeType: "image/jpeg",
-            },
+              mimeType: beforeImageMimeType
+            }
           },
           {
             fileData: {
               fileUri: afterImageUrl,
-              mimeType: "image/jpeg",
-            },
-          },
-        ],
-      },
-    ],
+              mimeType: afterImageMimeType
+            }
+          }
+        ]
+      }
+    ]
   });
 
   const text = response.text || "";
