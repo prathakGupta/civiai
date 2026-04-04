@@ -1,0 +1,27 @@
+
+> civiai-server@1.0.0 dev
+> npm run prisma:generate && npm run prisma:migrate:deploy && node --watch src/server.js
+
+
+> civiai-server@1.0.0 prisma:generate
+> prisma generate
+
+
+✔ Generated Prisma Client (v7.6.0) to .\node_modules\@prisma\client in 325ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+
+
+> civiai-server@1.0.0 prisma:migrate:deploy
+> prisma migrate deploy
+
+Datasource "db": PostgreSQL database "neondb", schema "public" at "ep-proud-king-am9awu9y-pooler.c-5.us-east-1.aws.neon.tech"
+
+2 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+[dotenv@17.3.1] injecting env (11) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+Server running on port 5000
+Completed running 'src/server.js'. Waiting for file changes before restarting...
