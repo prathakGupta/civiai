@@ -1,6 +1,8 @@
 import { useCallback } from "react";
 import { NavLink, Outlet, Navigate } from "react-router-dom";
-import { getUserRole, getAdminPassword } from "../lib/auth";
+import AppLogo from "../components/AppLogo";
+import { LayoutDashboard, ShieldCheck, Wrench, LogOut } from "lucide-react";
+import { getUserRole, getAdminPassword, setUserRole, setAdminPassword, setWorkerName } from "../lib/auth";
 
 function navItemClass(isActive) {
   const base =
@@ -9,15 +11,6 @@ function navItemClass(isActive) {
     return `${base} bg-blue-50/90 text-blue-800 font-bold border-blue-100 shadow-sm translate-x-1`;
   }
   return `${base} text-slate-600 hover:bg-white/70 hover:border-slate-200`;
-}
-
-function topNavClass(isActive) {
-  const base =
-    "text-[0.72rem] uppercase tracking-[0.18em] font-semibold transition-all duration-300 pb-1";
-  if (isActive) {
-    return `${base} text-blue-800 border-b-2 border-blue-700`;
-  }
-  return `${base} text-slate-500 hover:text-blue-700`;
 }
 
 function mobileNavClass(isActive) {
@@ -61,32 +54,24 @@ export default function ProtectedLayout() {
       <div className="ambient-orb ambient-orb-c" />
 
       <aside className="hidden lg:flex flex-col h-screen w-72 glass-panel rounded-r-3xl border-r border-slate-200/70 shadow-[4px_0_24px_rgba(0,0,0,0.02)] py-6 px-4 shrink-0 z-10">
-        <div className="flex items-center gap-3 px-2 mb-10 enter-up">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
-            <span className="material-symbols-outlined text-white text-base">shield</span>
-          </div>
-          <div>
-            <h1 className="text-lg font-black text-slate-900 leading-none font-headline">CiviAI</h1>
-            <p className="text-[0.62rem] uppercase tracking-[0.18em] text-slate-500 font-bold mt-1">
-              Staff Portal
-            </p>
-          </div>
+        <div className="px-2 mb-10 enter-up">
+          <AppLogo isStaff={true} />
         </div>
 
         <nav className="flex-1 flex flex-col gap-2">
           <NavLink to="/dashboard" className={({ isActive }) => navItemClass(isActive)}>
-            <span className="material-symbols-outlined text-[20px]">dashboard</span>
+            <LayoutDashboard size={20} />
             <span className="text-[0.74rem] uppercase tracking-[0.14em] font-semibold">Dashboard</span>
           </NavLink>
           {role === "ADMIN" && (
             <NavLink to="/queue" className={({ isActive }) => navItemClass(isActive)}>
-              <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+              <ShieldCheck size={20} />
               <span className="text-[0.74rem] uppercase tracking-[0.14em] font-semibold">Admin Queue</span>
             </NavLink>
           )}
           {(role === "WORKER" || role === "ADMIN") && (
             <NavLink to="/worker" className={({ isActive }) => navItemClass(isActive)}>
-              <span className="material-symbols-outlined text-[20px]">engineering</span>
+              <Wrench size={20} />
               <span className="text-[0.74rem] uppercase tracking-[0.14em] font-semibold">
                 Worker Tasks
               </span>
@@ -102,16 +87,14 @@ export default function ProtectedLayout() {
            
            <button 
              onClick={() => {
-               import("../lib/auth").then(auth => {
-                 auth.setUserRole("CITIZEN");
-                 auth.setAdminPassword("");
-                 auth.setWorkerName("");
-                 window.location.href = "/";
-               });
+               setUserRole("CITIZEN");
+               setAdminPassword("");
+               setWorkerName("");
+               window.location.href = "/";
              }}
              className="w-full py-2 mt-2 border border-slate-200 text-slate-600 bg-white hover:bg-slate-100 hover:text-slate-800 rounded-lg text-xs font-bold transition-colors flex justify-center items-center gap-2"
            >
-             <span className="material-symbols-outlined text-[16px]">logout</span>
+             <LogOut size={16} />
              Log Out
            </button>
         </div>
@@ -125,17 +108,15 @@ export default function ProtectedLayout() {
              </span>
              <button
                onClick={() => {
-                 import("../lib/auth").then(auth => {
-                   auth.setUserRole("CITIZEN");
-                   auth.setAdminPassword("");
-                   auth.setWorkerName("");
-                   window.location.href = "/";
-                 });
+                 setUserRole("CITIZEN");
+                 setAdminPassword("");
+                 setWorkerName("");
+                 window.location.href = "/";
                }}
                className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-100 text-slate-600 hover:bg-amber-100 hover:text-amber-800 transition-colors"
                title="Log Out"
              >
-               <span className="material-symbols-outlined text-[16px]">logout</span>
+               <LogOut size={16} />
              </button>
            </div>
         </header>
@@ -147,17 +128,17 @@ export default function ProtectedLayout() {
 
       <nav className="lg:hidden fixed bottom-3 left-3 right-3 glass-panel rounded-2xl border border-outline-variant/20 px-6 py-3 flex justify-evenly items-center z-[60] shadow-xl">
         <NavLink to="/dashboard" className={({ isActive }) => mobileNavClass(isActive)}>
-          <span className="material-symbols-outlined">dashboard</span>
+          <LayoutDashboard size={22} strokeWidth={2.5} />
           <span className="text-[10px] uppercase font-bold tracking-[0.12em]">Dashboard</span>
         </NavLink>
         {role === "ADMIN" && (
           <NavLink to="/queue" className={({ isActive }) => mobileNavClass(isActive)}>
-            <span className="material-symbols-outlined">admin_panel_settings</span>
+            <ShieldCheck size={22} strokeWidth={2.5} />
             <span className="text-[10px] uppercase font-bold tracking-[0.12em]">Queue</span>
           </NavLink>
         )}
         <NavLink to="/worker" className={({ isActive }) => mobileNavClass(isActive)}>
-          <span className="material-symbols-outlined">engineering</span>
+          <Wrench size={22} strokeWidth={2.5} />
           <span className="text-[10px] uppercase font-bold tracking-[0.12em]">Worker</span>
         </NavLink>
       </nav>

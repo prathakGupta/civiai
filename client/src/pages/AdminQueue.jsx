@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchComplaints, getErrorMessage, patchComplaintStatus } from "../api/complaints";
 import { getUserRole } from "../lib/auth";
+import { UserPlus, CheckCircle2, ExternalLink } from "lucide-react";
 
 const STATUS_OPTIONS = ["PENDING", "IN_REVIEW", "ASSIGNED", "RESOLVED", "REJECTED"];
 
@@ -287,7 +288,7 @@ export default function AdminQueue() {
                             onClick={() => applySingleStatus(item.id, "ASSIGNED")}
                             type="button"
                           >
-                            <span className="material-symbols-outlined text-[18px]">person_add</span>
+                            <UserPlus size={18} />
                           </button>
                           <button
                             className="p-1.5 rounded-lg bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors disabled:opacity-60"
@@ -296,14 +297,14 @@ export default function AdminQueue() {
                             onClick={() => applySingleStatus(item.id, "RESOLVED")}
                             type="button"
                           >
-                            <span className="material-symbols-outlined text-[18px]">done_all</span>
+                            <CheckCircle2 size={18} />
                           </button>
                           <Link
                             className="p-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors inline-flex"
                             title="Open Detail"
                             to={`/complaint/${item.id}`}
                           >
-                            <span className="material-symbols-outlined text-[18px]">open_in_new</span>
+                            <ExternalLink size={18} />
                           </Link>
                         </div>
                       </td>

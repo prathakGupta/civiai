@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchComplaints, getErrorMessage } from "../api/complaints";
+import { CloudOff, Loader2, Inbox, ChevronRight } from "lucide-react";
 
 const STATUS_OPTIONS = ["", "PENDING", "IN_REVIEW", "ASSIGNED", "RESOLVED", "REJECTED"];
 const ISSUE_OPTIONS = [
@@ -202,7 +203,7 @@ export default function OperationsDashboard() {
           <div className="table-shell enter-up relative">
             {error && (
               <div className="absolute inset-0 z-20 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center text-slate-500 min-h-[400px]">
-                 <span className="material-symbols-outlined text-5xl text-slate-300 mb-4 float-soft">cloud_off</span>
+                 <CloudOff className="text-slate-300 mb-4 float-soft" size={48} />
                  <h3 className="text-lg font-bold text-slate-700 font-headline mb-2">Network Disconnected</h3>
                  <p className="text-sm max-w-sm mb-6">{error}</p>
                  <button 
@@ -238,7 +239,7 @@ export default function OperationsDashboard() {
                   {isLoading && !error && (
                     <tr>
                       <td colSpan={5} className="py-20 text-center">
-                        <span className="material-symbols-outlined animate-spin text-3xl text-blue-500/50 mb-2">progress_activity</span>
+                        <Loader2 className="animate-spin text-blue-500/50 mb-2" size={32} />
                         <p className="text-sm text-secondary font-medium">Loading complaints data...</p>
                       </td>
                     </tr>
@@ -247,7 +248,7 @@ export default function OperationsDashboard() {
                   {!isLoading && !items.length && !error && (
                     <tr>
                       <td colSpan={5} className="py-20 text-center">
-                         <span className="material-symbols-outlined text-4xl text-slate-300 mb-2">inbox</span>
+                         <Inbox className="text-slate-300 mb-2" size={36} />
                          <h4 className="text-slate-700 font-bold mb-1">No Complaints Found</h4>
                          <p className="text-sm text-secondary">Try adjusting your filters or checking back later.</p>
                       </td>
@@ -289,7 +290,7 @@ export default function OperationsDashboard() {
                             className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
                             to={`/complaint/${complaint.id}`}
                           >
-                            <span className="material-symbols-outlined text-[20px]">arrow_forward_ios</span>
+                            <ChevronRight size={20} />
                           </Link>
                         </td>
                       </tr>

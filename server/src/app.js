@@ -12,7 +12,13 @@ import { notFoundMiddleware } from "./middleware/notFound.middleware.js";
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(",") : true,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Add request ID and logging

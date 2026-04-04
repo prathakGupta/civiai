@@ -1,5 +1,7 @@
 import { useCallback } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import AppLogo from "../components/AppLogo";
+import { BarChart3, PlusCircle } from "lucide-react";
 
 function topNavClass(isActive) {
   const base =
@@ -50,12 +52,7 @@ export default function PublicLayout() {
           <div className="glass-panel rounded-2xl px-5 md:px-6 py-3.5 flex justify-between items-center max-w-[1440px] mx-auto shadow-sm">
             <div className="flex items-center gap-8">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                  <span className="material-symbols-outlined text-white text-sm">shield</span>
-                </div>
-                <span className="text-xl font-black tracking-tight text-slate-900 font-headline hidden sm:inline-block">
-                  CiviAI
-                </span>
+                <AppLogo />
               </div>
               <nav className="hidden md:flex gap-6 border-l border-slate-200 pl-8">
                 <NavLink to="/" end className={({ isActive }) => topNavClass(isActive)}>
@@ -85,11 +82,11 @@ export default function PublicLayout() {
 
       <nav className="md:hidden fixed bottom-3 left-3 right-3 glass-panel rounded-2xl border border-outline-variant/20 px-10 py-3 flex justify-between items-center z-[60] shadow-xl">
         <NavLink to="/" end className={({ isActive }) => mobileNavClass(isActive)}>
-          <span className="material-symbols-outlined">analytics</span>
+          <BarChart3 size={22} strokeWidth={2.5} />
           <span className="text-[10px] uppercase font-bold tracking-[0.12em]">Impact</span>
         </NavLink>
         <NavLink to="/report" className={({ isActive }) => mobileNavClass(isActive)}>
-          <span className="material-symbols-outlined">add_circle</span>
+          <PlusCircle size={22} strokeWidth={2.5} />
           <span className="text-[10px] uppercase font-bold tracking-[0.12em]">Report</span>
         </NavLink>
       </nav>

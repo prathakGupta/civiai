@@ -9,3 +9,5 @@ client/node_modules
 client/dist
 server/node_modules
 server/generated
+docs/TODO.md
+docs/DEMO_SCRIPT.md

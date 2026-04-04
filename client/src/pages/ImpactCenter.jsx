@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchImpactOverview, getErrorMessage } from "../api/complaints";
+import { Sparkles } from "lucide-react";
 
 function formatPercent(value) {
   if (typeof value !== "number" || Number.isNaN(value)) return "0%";
@@ -64,7 +65,7 @@ export default function ImpactCenter() {
 
         <div className="relative z-10">
           <div className="flex items-center gap-2 mb-6 z-pop">
-            <span className="material-symbols-outlined text-blue-200">auto_awesome</span>
+            <Sparkles className="text-blue-200" size={24} />
             <h3 className="text-[0.74rem] uppercase tracking-[0.24em] font-bold text-blue-100">
               Civic Impact Pulse
             </h3>

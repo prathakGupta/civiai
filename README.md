@@ -1,63 +1,92 @@
 # CiviAI
 
-CiviAI is an AI-assisted civic complaint platform for reporting public issues with image evidence, automatic issue classification, admin workflow routing, and resolution verification.
+![CiviAI Banner](./client/public/civiai_banner.png)
 
-## Stack
+CiviAI is a state-of-the-art **AI-assisted civic engagement platform**. It bridges the gap between citizens and local authorities by providing a seamless, intelligence-driven workflow for reporting, tracking, and resolving public issues.
 
-- Frontend: React + Vite + Tailwind CSS
-- Backend: Node.js + Express
-- Database: PostgreSQL + Prisma
-- AI: Gemini (`@google/genai`)
-- Media: Cloudinary
+---
 
-## Current Implementation
+## 🌟 Key Features
 
-- Complaint lifecycle APIs are implemented and wired end-to-end:
-  - create complaint + AI classification
-  - list/filter complaints with pagination
-  - complaint detail with verification/audit timeline
-  - admin status updates and verification actions
-  - impact intelligence summary (`/api/v1/insights/overview`)
-- Frontend active routes are production-wired:
-  - `/` impact center
-  - `/dashboard` operations dashboard
-  - `/queue` admin queue
-  - `/worker` worker taskboard
-  - `/report` report flow
-  - `/complaint/:id` complaint detail
-- Security hardening is in place:
-  - role-based access control with admin-password protection for admin actions
-  - upload MIME whitelist + size limit + rate limiting
-- Testing coverage includes:
-  - frontend lint/build checks
-  - backend unit tests
-  - backend API integration tests for lifecycle endpoints
+- **🤖 AI-Powered Classification**: Automatic issue categorization and urgency detection using Google Gemini.
+- **🛡️ Multi-Portal Access**: Dedicated interfaces for **Citizens**, **Admins**, and **On-Ground Workers**.
+- **📈 Impact Intelligence**: Real-time analytics on resolution velocity, community hotspots, and operational efficiency.
+- **🔄 Distributed Sync**: Robust data consistency with CRDT-based synchronization for high-availability operations.
+- **🖼️ Verification Engine**: Before-and-after visual verification with AI-assisted audit trails.
+- **🎨 Premium UI**: A modern, responsive dashboard built with a professional design system.
 
-## Repo Layout
+---
 
-```txt
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React, Vite, Tailwind CSS, Heroicons |
+| **Backend** | Node.js, Express, Prisma ORM |
+| **Database** | PostgreSQL |
+| **AI/ML** | Google Gemini Generative AI (`@google/genai`) |
+| **Media** | Cloudinary (Secure Image Hosting) |
+| **Security** | RBAC, Armed Response Headers, Rate Limiting |
+
+---
+
+## 📁 Project Structure
+
+```bash
 civiai/
-  client/   React frontend
-  server/   Express + Prisma backend
-  docs/     setup, architecture, API, testing, deployment, backlog
+├── client/           # React + Vite Frontend
+│   ├── src/          # Source code, components, hooks
+│   └── public/       # Static assets and icons
+├── server/           # Express + Prisma Backend
+│   ├── prisma/       # Database schema and migrations
+│   └── src/          # API routes, controllers, services
+└── docs/             # Technical documentation and guides
 ```
 
-## Quick Start
+---
 
-Follow [docs/SETUP_GUIDE.md](./docs/SETUP_GUIDE.md).
+## 🚀 Quick Start
 
-Root scripts:
+### 1. Prerequisites
+- Node.js (v18+)
+- PostgreSQL instance
+- API Keys: Gemini AI, Cloudinary
 
-- `npm run dev` -> starts client dev server
-- `npm run dev:server` -> starts backend dev server
-- `npm run test` -> client lint + backend tests
-- `npm run test:ci` -> client lint/build + backend tests
+### 2. Installation
+Run the root install script to set up both client and server:
+```bash
+npm run install:all
+```
 
-## Documentation Index
+### 3. Environment Setup
+Create a `.env` file in the `server/` directory based on the deployment guide.
 
-- API contract: [docs/API_CONTRACT.md](./docs/API_CONTRACT.md)
-- Architecture: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
-- Database schema summary: [docs/DB_SCHEMA.md](./docs/DB_SCHEMA.md)
-- Testing: [docs/TESTING.md](./docs/TESTING.md)
-- Deployment: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
-- Backlog: [docs/TODO.md](./docs/TODO.md)
+### 4. Direct Start
+```bash
+npm run start
+```
+This will concurrently start the backend (Port 5000) and frontend (Port 5173).
+
+---
+
+## 📚 Documentation Index
+
+- 📖 [Setup Guide](./docs/SETUP_GUIDE.md) - Step-by-step local development setup.
+- 🏗️ [Architecture](./docs/ARCHITECTURE.md) - Deep dive into systems and patterns.
+- 🔌 [API Contract](./docs/API_CONTRACT.md) - RESTful endpoint documentation.
+- 🗄️ [Database Schema](./docs/DB_SCHEMA.md) - ER diagrams and model definitions.
+- 🧪 [Testing](./docs/TESTING.md) - CI/CD and manual test suites.
+- 🚀 [Deployment](./docs/DEPLOYMENT.md) - Production rollout instructions.
+
+---
+
+## 🔐 Security & Access Control
+
+CiviAI implements a strict **Role-Based Access Control (RBAC)** system:
+- **Citizens**: Report issues, view public impact, track personal reports.
+- **Workers**: Receive tasks, update on-ground progress, submit resolution evidence.
+- **Admins**: Full operational control, audit verification, and intelligence oversight.
+
+---
+
+*Built with ❤️ for a better, more connected city.*

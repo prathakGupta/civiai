@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setUserRole, setAdminPassword, setWorkerName } from "../lib/auth";
 import { loginAdmin } from "../api/authApi";
+import { Hexagon, AlertCircle, Loader2 } from "lucide-react";
 
 export default function Login() {
   const [role, setRole] = useState("ADMIN");
@@ -26,7 +27,7 @@ export default function Login() {
         } else {
           setError(res.message || "Invalid admin password.");
         }
-      } catch (err) {
+      } catch {
         setError("Network error. Could not reach the server.");
       }
     } else if (role === "WORKER") {
@@ -51,7 +52,7 @@ export default function Login() {
       <div className="glass-panel p-8 md:p-12 rounded-3xl w-full max-w-md shadow-2xl relative z-10 border border-white/50">
         <div className="text-center mb-8">
           <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-700 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
-            <span className="material-symbols-outlined text-white text-3xl">shield</span>
+            <Hexagon size={32} strokeWidth={2.5} className="text-white drop-shadow-md" />
           </div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight font-headline">CiviAI Staff Portal</h1>
           <p className="text-slate-500 text-sm mt-2 font-medium">Please sign in to access operational controls.</p>
@@ -59,7 +60,7 @@ export default function Login() {
 
         {error && (
           <div className="mb-6 p-4 rounded-xl bg-red-50 text-red-700 text-sm border border-red-100 flex items-center gap-2">
-            <span className="material-symbols-outlined text-[18px]">error</span>
+            <AlertCircle size={18} />
             {error}
           </div>
         )}
@@ -120,7 +121,7 @@ export default function Login() {
             className="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-blue-700 to-blue-600 hover:to-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-600/20 transition-all disabled:opacity-70 flex items-center justify-center gap-2"
           >
             {loading ? (
-              <span className="material-symbols-outlined animate-spin text-lg">progress_activity</span>
+              <Loader2 className="animate-spin" size={20} />
             ) : (
               "Sign In"
             )}

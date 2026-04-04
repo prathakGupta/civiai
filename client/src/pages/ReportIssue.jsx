@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import exifr from "exifr";
 import { createComplaint, getErrorMessage, uploadImage } from "../api/complaints";
+import { LocateFixed } from "lucide-react";
 
 const defaultForm = {
   locationText: "",
@@ -51,6 +53,8 @@ export default function ReportIssue() {
   const [previewUrl, setPreviewUrl] = useState("");
   const [createdComplaint, setCreatedComplaint] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDetecting, setIsDetecting] = useState(false);
+  const [locationMessage, setLocationMessage] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -102,6 +106,32 @@ export default function ReportIssue() {
     }
   }
 
+  function handleDetectLocation() {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser");
+      return;
+    }
+    
+    setIsDetecting(true);
+    setLocationMessage("");
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setForm((prev) => ({
+          ...prev,
+          latitude: position.coords.latitude.toString(),
+          longitude: position.coords.longitude.toString()
+        }));
+        setLocationMessage("Location securely detected from your device.");
+        setIsDetecting(false);
+      },
+      (geoError) => {
+        console.error(geoError);
+        setError("Unable to retrieve your location from device sensors.");
+        setIsDetecting(false);
+      }
+    );
+  }
+
   return (
     <div className="flex-1 overflow-y-auto h-full relative p-6 md:p-8">
       <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-[1.24fr_0.76fr] gap-6">
@@ -120,7 +150,32 @@ export default function ReportIssue() {
                 className="mt-2 block w-full rounded-xl p-2.5 text-sm"
                 type="file"
                 accept="image/*"
-                onChange={(event) => setFile(event.target.files?.[0] || null)}
+                onChange={async (event) => {
+                  const selectedFile = event.target.files?.[0] || null;
+                  setFile(selectedFile);
+                  
+                  if (selectedFile) {
+                    try {
+                      // Attempt to extract GPS from EXIF
+                      const gps = await exifr.gps(selectedFile);
+                      if (gps && typeof gps.latitude === "number" && typeof gps.longitude === "number") {
+                        setForm((prev) => ({
+                          ...prev,
+                          latitude: gps.latitude.toString(),
+                          longitude: gps.longitude.toString()
+                        }));
+                        setLocationMessage("Location extracted from image metadata.");
+                      } else {
+                        setLocationMessage("");
+                      }
+                    } catch (e) {
+                      console.debug("No EXIF GPS data found or format unsupported", e);
+                      setLocationMessage("");
+                    }
+                  } else {
+                    setLocationMessage("");
+                  }
+                }}
               />
             </label>
 
@@ -152,29 +207,46 @@ export default function ReportIssue() {
               />
             </label>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <label className="block">
-                <span className="text-xs uppercase tracking-[0.16em] font-bold text-secondary">Latitude</span>
-                <input
-                  className="mt-2 block w-full rounded-xl p-2.5 text-sm"
-                  name="latitude"
-                  type="number"
-                  step="any"
-                  value={form.latitude}
-                  onChange={handleChange}
-                />
-              </label>
-              <label className="block">
-                <span className="text-xs uppercase tracking-[0.16em] font-bold text-secondary">Longitude</span>
-                <input
-                  className="mt-2 block w-full rounded-xl p-2.5 text-sm"
-                  name="longitude"
-                  type="number"
-                  step="any"
-                  value={form.longitude}
-                  onChange={handleChange}
-                />
-              </label>
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="text-xs uppercase tracking-[0.16em] font-bold text-secondary">Coordinates (Optional)</span>
+                <button 
+                  type="button" 
+                  onClick={handleDetectLocation}
+                  disabled={isDetecting}
+                  className="text-xs font-bold px-3 py-1.5 bg-blue-50/80 border border-blue-200 text-blue-700 hover:bg-blue-100 rounded-lg transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                >
+                  <LocateFixed size={16} />
+                  {isDetecting ? "Detecting..." : "Detect Location"}
+                </button>
+              </div>
+              
+              {locationMessage && <p className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-100">{locationMessage}</p>}
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className="block">
+                  <input
+                    className="block w-full rounded-xl p-2.5 text-sm bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
+                    name="latitude"
+                    type="number"
+                    step="any"
+                    placeholder="Latitude"
+                    value={form.latitude}
+                    onChange={handleChange}
+                  />
+                </label>
+                <label className="block">
+                  <input
+                    className="block w-full rounded-xl p-2.5 text-sm bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all"
+                    name="longitude"
+                    type="number"
+                    step="any"
+                    placeholder="Longitude"
+                    value={form.longitude}
+                    onChange={handleChange}
+                  />
+                </label>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
